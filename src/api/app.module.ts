@@ -8,6 +8,7 @@ import { DataSource } from 'typeorm';
 import { Step } from './steps/step.entity';
 import { StepsModule } from './steps/steps.module';
 import { SitesModule } from './sites/sites.module';
+import { Site } from './sites/site.entity';
 
 @Module({
   imports: [
@@ -18,7 +19,7 @@ import { SitesModule } from './sites/sites.module';
       username: 'postgres',
       password: 'root',
       database: 'nestjs',
-      entities: [Step],
+      entities: [Site, Step],
       // TODO(nazhon): remove in production
       synchronize: true,
     }),
