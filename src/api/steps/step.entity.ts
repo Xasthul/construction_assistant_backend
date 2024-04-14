@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Site } from "../sites/site.entity";
 
 @Entity('steps')
 export class Step {
@@ -17,4 +18,7 @@ export class Step {
 
     @Column({ default: false })
     isCompleted: boolean
+
+    @ManyToOne(() => Site, (site) => site.steps)
+    site: Site
 }
