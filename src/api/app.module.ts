@@ -9,6 +9,7 @@ import { Step } from './steps/step.entity';
 import { StepsModule } from './steps/steps.module';
 import { SitesModule } from './sites/sites.module';
 import { Site } from './sites/site.entity';
+import { Project } from './projects/project.entity';
 
 @Module({
   imports: [
@@ -19,7 +20,7 @@ import { Site } from './sites/site.entity';
       username: 'postgres',
       password: 'root',
       database: 'nestjs',
-      entities: [Site, Step],
+      entities: [Project, Site, Step],
       // TODO(nazhon): remove in production
       synchronize: true,
     }),
