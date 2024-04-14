@@ -7,6 +7,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { DataSource } from 'typeorm';
 import { Step } from './steps/step.entity';
 import { StepsModule } from './steps/steps.module';
+import { SitesModule } from './sites/sites.module';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { StepsModule } from './steps/steps.module';
     }),
     ProjectsModule,
     StepsModule,
+    SitesModule,
   ],
   controllers: [AppController],
   providers: [AppService],
