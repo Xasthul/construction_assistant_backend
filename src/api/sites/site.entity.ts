@@ -1,5 +1,6 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Step } from "../steps/step.entity";
+import { Project } from "../projects/project.entity";
 
 @Entity('sites')
 export class Site {
@@ -12,4 +13,7 @@ export class Site {
 
     @OneToMany(() => Step, (step) => step.site)
     steps: Step[]
+
+    @ManyToOne(() => Project, (project) => project.sites)
+    project: Project
 }
