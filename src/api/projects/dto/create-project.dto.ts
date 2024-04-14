@@ -9,5 +9,5 @@ export class CreateProjectDto {
     @IsArray()
     @IsObject()
     @IsNotEmpty()
-    readonly sites: Array<string>;
+    readonly sites: string[];
 }
