@@ -9,12 +9,12 @@ export class Step {
     @Column()
     title: string
 
-    @Column()
+    @Column({ nullable: true })
     details: string
 
-    @Column('varchar', { array: true })
+    @Column('varchar', { array: true, nullable: true })
     assets: string[]
 
-    @Column()
+    @Column({ default: false })
     isCompleted: boolean
 }
