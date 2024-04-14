@@ -5,6 +5,7 @@ import { ProjectsModule } from './projects/projects.module';
 import { LoggerMiddleware } from './common/middleware/logger.middleware';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { DataSource } from 'typeorm';
+import { Step } from './steps/step.entity';
 
 @Module({
   imports: [
@@ -15,7 +16,7 @@ import { DataSource } from 'typeorm';
       username: 'postgres',
       password: 'root',
       database: 'nestjs',
-      entities: [],
+      entities: [Step],
       // TODO(nazhon): remove in production
       synchronize: true,
     }),
