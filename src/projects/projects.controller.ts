@@ -1,10 +1,10 @@
 import { Body, Controller, Delete, Get, Post, Put } from '@nestjs/common';
-import { ProjectService } from './project.service';
+import { ProjectsService } from './projects.service';
 import { CreateProjectDto } from './dto/create-project.dto';
 
-@Controller('project')
-export class ProjectController {
-    constructor(private projectService: ProjectService) { }
+@Controller('projects')
+export class ProjectsController {
+    constructor(private projectsService: ProjectsService) { }
 
     @Get()
     findAll() {
