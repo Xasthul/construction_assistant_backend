@@ -6,6 +6,7 @@ import { LoggerMiddleware } from './common/middleware/logger.middleware';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { DataSource } from 'typeorm';
 import { Step } from './steps/step.entity';
+import { StepsModule } from './steps/steps.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { Step } from './steps/step.entity';
       synchronize: true,
     }),
     ProjectsModule,
+    StepsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
