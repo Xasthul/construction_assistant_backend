@@ -1,5 +1,6 @@
-import { Controller, Delete, Get, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Post, Put } from '@nestjs/common';
 import { ProjectService } from './project.service';
+import { CreateProjectDto } from './dto/create-project.dto';
 
 @Controller('project')
 export class ProjectController {
@@ -16,7 +17,7 @@ export class ProjectController {
     }
 
     @Post()
-    create() {
+    create(@Body() createProjectDto: CreateProjectDto) {
         return 'Create project'
     }
 
