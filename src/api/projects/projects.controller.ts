@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpException, HttpStatus, Post, Put } from '@nestjs/common';
 import { ProjectsService } from './projects.service';
 import { CreateProjectDto } from './dto/create-project.dto';
 
@@ -8,7 +8,11 @@ export class ProjectsController {
 
     @Get()
     findAll() {
-        return 'Projects array'
+        try {
+            return 'Projects array'
+        } catch (error) {
+            throw new HttpException('Internal error', HttpStatus.INTERNAL_SERVER_ERROR)
+        }
     }
 
     @Get(':id')
