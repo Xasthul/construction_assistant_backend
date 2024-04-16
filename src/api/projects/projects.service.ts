@@ -17,7 +17,7 @@ export class ProjectsService {
         return await this.projectRepository.save(project);
     }
 
-    async delete(id: number) {
+    async delete(id: string) {
         return await this.projectRepository.delete({ id: id });
     }
 }
