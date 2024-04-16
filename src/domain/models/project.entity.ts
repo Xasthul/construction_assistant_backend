@@ -1,7 +1,6 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Site } from "./site.entity";
 
-
 @Entity('projects')
 export class Project {
 
