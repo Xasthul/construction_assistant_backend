@@ -1,9 +1,7 @@
-import { IsNotEmpty, IsNumberString } from "class-validator";
+import { IsNotEmpty, IsUUID } from "class-validator";
 
 export class ProjectIdParam {
 
-    @IsNumberString()
-    @IsNotEmpty()
-    id: number
+    @IsUUID()
+    id: string
 }
- 

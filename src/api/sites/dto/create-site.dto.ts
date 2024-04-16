@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsNumber, IsString } from "class-validator";
+import { IsNotEmpty, IsString, IsUUID } from "class-validator";
 
 export class CreateSiteDto {
 
@@ -6,7 +6,6 @@ export class CreateSiteDto {
     @IsNotEmpty()
     readonly title: string;
 
-    @IsNumber()
-    @IsNotEmpty()
-    readonly projectId: number;
+    @IsUUID()
+    readonly projectId: string;
 }

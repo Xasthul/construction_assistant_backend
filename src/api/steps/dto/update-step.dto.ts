@@ -8,11 +8,12 @@ export class UpdateStepDto {
     readonly title: string
 
     @IsString()
+    @IsNotEmpty()
     @IsOptional()
     readonly details: string
 
     @IsArray()
-    @IsString()
+    @IsString({ each: true })
     @IsOptional()
     readonly assets: string[]
 }

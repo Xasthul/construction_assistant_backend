@@ -24,15 +24,15 @@ export class StepsService {
         return await this.stepRepository.find();
     }
 
-    async update(id: number, updateStepDto: UpdateStepDto) {
+    async update(id: string, updateStepDto: UpdateStepDto) {
         return await this.stepRepository.update({ id: id }, updateStepDto);
     }
 
-    async delete(id: number) {
+    async delete(id: string) {
         return await this.stepRepository.delete({ id: id });
     }
 
-    async complete(id: number) {
+    async complete(id: string) {
         return await this.stepRepository.update({ id: id }, { isCompleted: true });
     }
 }
