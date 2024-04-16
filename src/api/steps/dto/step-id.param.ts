@@ -1,7 +1,7 @@
-import { IsInt } from "class-validator";
+import { IsNumberString } from "class-validator";
 
 export class StepIdParam {
 
-    @IsInt()
+    @IsNumberString()
     id: number
 }
