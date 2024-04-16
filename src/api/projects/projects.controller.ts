@@ -9,11 +9,7 @@ export class ProjectsController {
 
     @Get()
     findAll() {
-        try {
-            return 'Projects array'
-        } catch (error) {
-            throw new HttpException('Internal error', HttpStatus.INTERNAL_SERVER_ERROR)
-        }
+        return 'Projects array'
     }
 
     @Get(':id')
@@ -23,11 +19,7 @@ export class ProjectsController {
 
     @Post()
     create(@Body() createProjectDto: CreateProjectDto) {
-        try {
-            return this.projectsService.create(createProjectDto);
-        } catch (error) {
-            throw new HttpException('Internal error', HttpStatus.INTERNAL_SERVER_ERROR)
-        }
+        return this.projectsService.create(createProjectDto);
     }
 
     @Put(':id')
@@ -37,10 +29,6 @@ export class ProjectsController {
 
     @Delete(':id')
     delete(@Param() projectIdParam: ProjectIdParam) {
-        try {
-            return this.projectsService.delete(projectIdParam.id);
-        } catch (error) {
-            throw new HttpException('Internal error', HttpStatus.INTERNAL_SERVER_ERROR)
-        }
+        return this.projectsService.delete(projectIdParam.id);
     }
 }

@@ -10,20 +10,12 @@ export class StepsController {
 
     @Post()
     create(@Body() createStepDto: CreateStepDto) {
-        try {
-            return this.stepsService.create(createStepDto);
-        } catch (error) {
-            throw new HttpException('Internal error', HttpStatus.INTERNAL_SERVER_ERROR)
-        }
+        return this.stepsService.create(createStepDto);
     }
 
     @Get()
     findAll() {
-        try {
-            return this.stepsService.findAll();
-        } catch (error) {
-            throw new HttpException('Internal error', HttpStatus.INTERNAL_SERVER_ERROR)
-        }
+        return this.stepsService.findAll();
     }
 
     @Put(':id')
@@ -31,28 +23,16 @@ export class StepsController {
         @Param() stepIdParam: StepIdParam,
         @Body() updateStepDto: UpdateStepDto,
     ) {
-        try {
-            return this.stepsService.update(stepIdParam.id, updateStepDto);
-        } catch (error) {
-            throw new HttpException('Internal error', HttpStatus.INTERNAL_SERVER_ERROR)
-        }
+        return this.stepsService.update(stepIdParam.id, updateStepDto);
     }
 
     @Delete(':id')
     delete(@Param() stepIdParam: StepIdParam) {
-        try {
-            return this.stepsService.delete(stepIdParam.id);
-        } catch (error) {
-            throw new HttpException('Internal error', HttpStatus.INTERNAL_SERVER_ERROR)
-        }
+        return this.stepsService.delete(stepIdParam.id);
     }
 
     @Put('complete/:id')
     complete(@Param() stepIdParam: StepIdParam) {
-        try {
-            return this.stepsService.complete(stepIdParam.id);
-        } catch (error) {
-            throw new HttpException('Internal error', HttpStatus.INTERNAL_SERVER_ERROR)
-        }
+        return this.stepsService.complete(stepIdParam.id);
     }
 }

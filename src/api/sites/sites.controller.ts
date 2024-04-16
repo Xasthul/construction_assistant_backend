@@ -8,10 +8,6 @@ export class SitesController {
 
     @Post()
     create(@Body() createSiteDto: CreateSiteDto) {
-        try {
-            return this.sitesService.create(createSiteDto);
-        } catch (error) {
-            throw new HttpException('Internal error', HttpStatus.INTERNAL_SERVER_ERROR)
-        }
+        return this.sitesService.create(createSiteDto);
     }
 }
