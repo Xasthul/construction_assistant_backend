@@ -10,6 +10,7 @@ import { StepsModule } from './steps/steps.module';
 import { SitesModule } from './sites/sites.module';
 import { Site } from '../domain/models/site.entity';
 import { Project } from '../domain/models/project.entity';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { Project } from '../domain/models/project.entity';
     ProjectsModule,
     StepsModule,
     SitesModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
