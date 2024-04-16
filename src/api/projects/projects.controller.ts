@@ -1,6 +1,7 @@
-import { Body, Controller, Delete, Get, HttpException, HttpStatus, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpException, HttpStatus, Param, Post, Put } from '@nestjs/common';
 import { ProjectsService } from './projects.service';
 import { CreateProjectDto } from './dto/create-project.dto';
+import { ProjectIdParam } from './dto/project-id.param';
 
 @Controller('projects')
 export class ProjectsController {
@@ -22,7 +23,11 @@ export class ProjectsController {
 
     @Post()
     create(@Body() createProjectDto: CreateProjectDto) {
-        return 'Create project'
+        try {
+            return this.projectsService.create(createProjectDto);
+        } catch (error) {
+            throw new HttpException('Internal error', HttpStatus.INTERNAL_SERVER_ERROR)
+        }
     }
 
     @Put(':id')
@@ -31,7 +36,11 @@ export class ProjectsController {
     }
 
     @Delete(':id')
-    delete() {
-        return 'Delete project'
+    delete(@Param() projectIdParam: ProjectIdParam) {
+        try {
+            return this.projectsService.delete(projectIdParam.id);
+        } catch (error) {
+            throw new HttpException('Internal error', HttpStatus.INTERNAL_SERVER_ERROR)
+        }
     }
 }
