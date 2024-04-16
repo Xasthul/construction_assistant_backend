@@ -5,7 +5,7 @@ import { Site } from "../sites/site.entity";
 export class Project {
 
     @PrimaryGeneratedColumn('uuid')
-    id: number
+    id: string
 
     @Column()
     title: string

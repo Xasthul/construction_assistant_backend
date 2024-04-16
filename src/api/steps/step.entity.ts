@@ -5,7 +5,7 @@ import { Site } from "../sites/site.entity";
 export class Step {
 
     @PrimaryGeneratedColumn('uuid')
-    id: number
+    id: string
 
     @Column()
     title: string

@@ -6,7 +6,7 @@ import { Project } from "../projects/project.entity";
 export class Site {
 
     @PrimaryGeneratedColumn('uuid')
-    id: number
+    id: string
 
     @Column()
     title: string
@@ -16,5 +16,5 @@ export class Site {
 
     @ManyToOne(() => Project, (project) => project.sites, { onDelete: 'CASCADE' })
     @JoinColumn({ name: 'projectId' })
-    projectId: number
+    projectId: string
 }
