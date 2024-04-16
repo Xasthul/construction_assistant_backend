@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Site } from './site.entity';
 import { Repository } from 'typeorm';
@@ -17,7 +17,7 @@ export class SitesService {
     async create(createSiteDto: CreateSiteDto) {
         const project = await this.projectRepository.findOneBy({ id: createSiteDto.projectId });
         if (!project) {
-            throw new Error('Project with such id not found');
+            throw new NotFoundException('Project with such id was not found');
         }
         const site = new Site();
         site.title = createSiteDto.title;
