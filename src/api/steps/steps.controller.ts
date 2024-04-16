@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, HttpException, HttpStatus, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Post, Put } from '@nestjs/common';
 import { StepsService } from './steps.service';
 import { CreateStepDto } from './dto/create-step.dto';
 import { StepIdParam } from './dto/step-id.param';
@@ -9,6 +9,7 @@ export class StepsController {
     constructor(readonly stepsService: StepsService) { }
 
     @Post()
+    @HttpCode(HttpStatus.CREATED)
     create(@Body() createStepDto: CreateStepDto) {
         return this.stepsService.create(createStepDto);
     }

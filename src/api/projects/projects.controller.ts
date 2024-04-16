@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, HttpException, HttpStatus, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Post, Put } from '@nestjs/common';
 import { ProjectsService } from './projects.service';
 import { CreateProjectDto } from './dto/create-project.dto';
 import { ProjectIdParam } from './dto/project-id.param';
@@ -18,6 +18,7 @@ export class ProjectsController {
     }
 
     @Post()
+    @HttpCode(HttpStatus.CREATED)
     create(@Body() createProjectDto: CreateProjectDto) {
         return this.projectsService.create(createProjectDto);
     }
