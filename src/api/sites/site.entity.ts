@@ -1,4 +1,4 @@
-import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Step } from "../steps/step.entity";
 import { Project } from "../projects/project.entity";
 
@@ -14,6 +14,7 @@ export class Site {
     @OneToMany(() => Step, (step) => step.site)
     steps: Step[]
 
-    @ManyToOne(() => Project, (project) => project.sites)
-    project: Project
+    @ManyToOne(() => Project, (project) => project.sites, { onDelete: 'CASCADE' })
+    @JoinColumn({ name: 'projectId' })
+    projectId: number
 }

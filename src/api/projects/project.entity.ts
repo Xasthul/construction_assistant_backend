@@ -1,5 +1,4 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
-import { Step } from "../steps/step.entity";
 import { Site } from "../sites/site.entity";
 
 @Entity('projects')
@@ -11,6 +10,6 @@ export class Project {
     @Column()
     title: string
 
-    @OneToMany(() => Site, (site) => site.project)
+    @OneToMany(() => Site, (site) => site.projectId)
     sites: Site[]
 }
