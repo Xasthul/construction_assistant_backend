@@ -1,4 +1,4 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Site } from "./site.entity";
 
 @Entity('steps')
@@ -19,6 +19,7 @@ export class Step {
     @Column({ default: false })
     isCompleted: boolean
 
-    @ManyToOne(() => Site, (site) => site.steps)
-    site: Site
+    @ManyToOne(() => Site, (site) => site.steps, { onDelete: 'CASCADE' })
+    @JoinColumn({ name: 'siteId' })
+    siteId: string
 }
