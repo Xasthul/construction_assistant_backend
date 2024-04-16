@@ -4,7 +4,7 @@ import { Site } from "../sites/site.entity";
 @Entity('projects')
 export class Project {
 
-    @PrimaryGeneratedColumn()
+    @PrimaryGeneratedColumn('uuid')
     id: number
 
     @Column()
