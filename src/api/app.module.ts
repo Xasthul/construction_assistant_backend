@@ -11,6 +11,7 @@ import { SitesModule } from './sites/sites.module';
 import { Site } from '../domain/models/site.entity';
 import { Project } from '../domain/models/project.entity';
 import { AuthModule } from './auth/auth.module';
+import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { AuthModule } from './auth/auth.module';
     StepsModule,
     SitesModule,
     AuthModule,
+    UsersModule,
   ],
   controllers: [AppController],
   providers: [AppService],
