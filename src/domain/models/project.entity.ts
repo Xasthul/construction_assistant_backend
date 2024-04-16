@@ -1,5 +1,6 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
-import { Site } from "../sites/site.entity";
+import { Site } from "./site.entity";
+
 
 @Entity('projects')
 export class Project {

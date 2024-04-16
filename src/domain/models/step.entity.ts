@@ -1,5 +1,5 @@
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
-import { Site } from "../sites/site.entity";
+import { Site } from "./site.entity";
 
 @Entity('steps')
 export class Step {

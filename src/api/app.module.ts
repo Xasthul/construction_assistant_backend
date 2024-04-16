@@ -5,11 +5,11 @@ import { ProjectsModule } from './projects/projects.module';
 import { LoggerMiddleware } from './common/middleware/logger.middleware';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { DataSource } from 'typeorm';
-import { Step } from './steps/step.entity';
+import { Step } from '../domain/models/step.entity';
 import { StepsModule } from './steps/steps.module';
 import { SitesModule } from './sites/sites.module';
-import { Site } from './sites/site.entity';
-import { Project } from './projects/project.entity';
+import { Site } from '../domain/models/site.entity';
+import { Project } from '../domain/models/project.entity';
 
 @Module({
   imports: [

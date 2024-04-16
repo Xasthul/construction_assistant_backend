@@ -1,9 +1,9 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Site } from './site.entity';
+import { Site } from '../../domain/models/site.entity';
 import { Repository } from 'typeorm';
 import { CreateSiteDto } from './dto/create-site.dto';
-import { Project } from '../projects/project.entity';
+import { Project } from '../../domain/models/project.entity';
 
 @Injectable()
 export class SitesService {

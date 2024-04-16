@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Step } from './step.entity';
+import { Step } from '../../domain/models/step.entity';
 import { StepsController } from './steps.controller';
 import { StepsService } from './steps.service';
 

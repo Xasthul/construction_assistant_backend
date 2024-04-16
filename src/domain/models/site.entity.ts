@@ -1,6 +1,6 @@
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
-import { Step } from "../steps/step.entity";
-import { Project } from "../projects/project.entity";
+import { Step } from "./step.entity";
+import { Project } from "./project.entity";
 
 @Entity('sites')
 export class Site {
