@@ -10,9 +10,16 @@ import { Project } from '../domain/models/project.entity';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { User } from 'src/domain/models/user.entity';
+import { ConfigModule } from '@nestjs/config';
+import configuration from 'src/config/configuration';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({
+      envFilePath: ['.env'],
+      isGlobal: true,
+      load: [configuration]
+    }),
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: 'localhost',
