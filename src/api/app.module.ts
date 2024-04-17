@@ -2,16 +2,13 @@ import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { ProjectsModule } from './projects/projects.module';
 import { LoggerMiddleware } from './common/middleware/logger.middleware';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Step } from '../domain/models/step.entity';
 import { StepsModule } from './steps/steps.module';
 import { SitesModule } from './sites/sites.module';
-import { Site } from '../domain/models/site.entity';
-import { Project } from '../domain/models/project.entity';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
-import { User } from 'src/domain/models/user.entity';
 import { ConfigModule } from '@nestjs/config';
 import configuration from 'src/config/configuration';
+import { typeOrmAsyncConfig } from 'src/config/type-orm-async-config';
 
 @Module({
   imports: [
@@ -20,17 +17,7 @@ import configuration from 'src/config/configuration';
       isGlobal: true,
       load: [configuration]
     }),
-    TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: 'localhost',
-      port: 5432,
-      username: 'postgres',
-      password: 'root',
-      database: 'nestjs',
-      entities: [User, Project, Site, Step],
-      // TODO(nazhon): remove in production
-      synchronize: true,
-    }),
+    TypeOrmModule.forRootAsync(typeOrmAsyncConfig),
     ProjectsModule,
     StepsModule,
     SitesModule,
