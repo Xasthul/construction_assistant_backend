@@ -27,6 +27,6 @@ import { typeOrmAsyncConfig } from 'src/config/type-orm-async-config';
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer.apply(LoggerMiddleware).forRoutes('projects')
+    consumer.apply(LoggerMiddleware).forRoutes('*')
   }
 }
