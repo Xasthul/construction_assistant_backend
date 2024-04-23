@@ -28,7 +28,7 @@ export class StepsController {
     @Post()
     @HttpCode(HttpStatus.CREATED)
     @ApiOperation({ summary: 'Create new step' })
-    @ApiResponse({ status: 201 })
+    @ApiResponse({ status: 201, type: StepResource })
     async create(@Body() createStepDto: CreateStepDto) {
         const step = await this.stepsService.create(createStepDto);
 

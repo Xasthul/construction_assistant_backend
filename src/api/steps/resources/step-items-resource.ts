@@ -4,7 +4,11 @@ import { StepResource } from "./step-resource";
 
 export class StepItemsResource {
 
-    @ApiProperty({ description: 'Array of steps' })
+    @ApiProperty({
+        description: 'Array of steps',
+        isArray: true,
+        type: StepResource
+    })
     readonly data: StepResource[]
 
     constructor(steps: Step[]) {
