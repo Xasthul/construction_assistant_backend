@@ -12,10 +12,7 @@ export class AuthController {
     @Post('signup')
     @HttpCode(HttpStatus.CREATED)
     @ApiOperation({ summary: 'Register new user' })
-    @ApiResponse({
-        status: 201,
-        description: 'Success'
-    })
+    @ApiResponse({ status: 201 })
     signUp(@Body() createUserDto: CreateUserDto) {
         return this.authService.signUp(createUserDto);
     }
@@ -23,10 +20,7 @@ export class AuthController {
     @Post('login')
     @HttpCode(HttpStatus.OK)
     @ApiOperation({ summary: 'Login user' })
-    @ApiResponse({
-        status: 200,
-        description: 'Success'
-    })
+    @ApiResponse({ status: 200 })
     login(@Body() loginDto: LoginDto) {
         return this.authService.login(loginDto);
     }
