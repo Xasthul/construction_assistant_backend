@@ -12,7 +12,11 @@ export class StepsService {
         private stepRepository: Repository<Step>
     ) { }
 
-    async create(createStepDto: CreateStepDto) {
+    async findAll(): Promise<Step[]> {
+        return await this.stepRepository.find();
+    }
+
+    async create(createStepDto: CreateStepDto): Promise<Step> {
         const step = new Step();
         step.title = createStepDto.title;
         step.details = createStepDto.details;
@@ -20,16 +24,12 @@ export class StepsService {
         return await this.stepRepository.save(step);
     }
 
-    async findAll() {
-        return await this.stepRepository.find();
-    }
-
     async update(id: string, updateStepDto: UpdateStepDto) {
         return await this.stepRepository.update({ id: id }, updateStepDto);
     }
 
     async delete(id: string) {
-        return await this.stepRepository.delete({ id: id });
+        await this.stepRepository.delete({ id: id });
     }
 
     async complete(id: string) {
