@@ -5,6 +5,8 @@ import { StepIdParam } from './dto/step-id.param';
 import { UpdateStepDto } from './dto/update-step.dto';
 import { JwtAuthGuard } from '../auth/jwt-auth-guard';
 import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { StepItemsResource } from './resources/step-items-resource';
+import { StepResource } from './resources/step-resource';
 
 @Controller('steps')
 @UseGuards(JwtAuthGuard)
@@ -13,20 +15,24 @@ import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagg
 export class StepsController {
     constructor(readonly stepsService: StepsService) { }
 
+    @Get()
+    @HttpCode(HttpStatus.OK)
+    @ApiOperation({ summary: 'Get all steps' })
+    @ApiResponse({ status: 200, type: StepItemsResource })
+    async findAll() {
+        const steps = await this.stepsService.findAll();
+
+        return StepItemsResource.from(steps);
+    }
+
     @Post()
     @HttpCode(HttpStatus.CREATED)
     @ApiOperation({ summary: 'Create new step' })
     @ApiResponse({ status: 201 })
-    create(@Body() createStepDto: CreateStepDto) {
-        return this.stepsService.create(createStepDto);
-    }
+    async create(@Body() createStepDto: CreateStepDto) {
+        const step = await this.stepsService.create(createStepDto);
 
-    @Get()
-    @HttpCode(HttpStatus.OK)
-    @ApiOperation({ summary: 'Get all steps' })
-    @ApiResponse({ status: 200 })
-    findAll() {
-        return this.stepsService.findAll();
+        return StepResource.from(step);
     }
 
     @Put(':id')
