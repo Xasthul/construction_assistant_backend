@@ -4,9 +4,11 @@ import { CreateStepDto } from './dto/create-step.dto';
 import { StepIdParam } from './dto/step-id.param';
 import { UpdateStepDto } from './dto/update-step.dto';
 import { JwtAuthGuard } from '../auth/jwt-auth-guard';
+import { ApiBearerAuth } from '@nestjs/swagger';
 
 @Controller('steps')
 @UseGuards(JwtAuthGuard)
+@ApiBearerAuth('JWT-auth')
 export class StepsController {
     constructor(readonly stepsService: StepsService) { }
 

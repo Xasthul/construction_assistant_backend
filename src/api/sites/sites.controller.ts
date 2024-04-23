@@ -2,9 +2,11 @@ import { Body, Controller, HttpCode, HttpStatus, Post, UseGuards } from '@nestjs
 import { SitesService } from './sites.service';
 import { CreateSiteDto } from './dto/create-site.dto';
 import { JwtAuthGuard } from '../auth/jwt-auth-guard';
+import { ApiBearerAuth } from '@nestjs/swagger';
 
 @Controller('sites')
 @UseGuards(JwtAuthGuard)
+@ApiBearerAuth('JWT-auth')
 export class SitesController {
     constructor(private sitesService: SitesService) { }
 
