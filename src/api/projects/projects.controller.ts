@@ -5,10 +5,11 @@ import { ProjectIdParam } from './dto/project-id.param';
 import { JwtAuthGuard } from '../auth/jwt-auth-guard';
 import { User } from '../common/decorators/user.decorator';
 import { JwtPayload } from '../auth/dto/jwt-payload';
-import { ApiBearerAuth } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
 @Controller('projects')
 @UseGuards(JwtAuthGuard)
+@ApiTags('Projects')
 @ApiBearerAuth('JWT-auth')
 export class ProjectsController {
     constructor(private projectsService: ProjectsService) { }
