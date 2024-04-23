@@ -3,6 +3,7 @@ import { CreateUserDto } from '../users/dto/create-user.dto';
 import { LoginDto } from './dto/login.dto';
 import { AuthService } from './auth.service';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { LoginResource } from './resources/login-resource';
 
 @Controller('auth')
 @ApiTags('Auth')
@@ -20,8 +21,13 @@ export class AuthController {
     @Post('login')
     @HttpCode(HttpStatus.OK)
     @ApiOperation({ summary: 'Login user' })
-    @ApiResponse({ status: 200 })
-    login(@Body() loginDto: LoginDto) {
-        return this.authService.login(loginDto);
+    @ApiResponse({
+        status: 200,
+        type: LoginResource
+    })
+    async login(@Body() loginDto: LoginDto) {
+        const accessToken = await this.authService.login(loginDto);
+
+        return LoginResource.from(accessToken);
     }
 }
