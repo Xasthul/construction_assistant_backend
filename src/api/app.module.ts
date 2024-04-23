@@ -18,10 +18,10 @@ import { typeOrmAsyncConfig } from 'src/config/type-orm-async-config';
       load: [configuration]
     }),
     TypeOrmModule.forRootAsync(typeOrmAsyncConfig),
-    ProjectsModule,
-    StepsModule,
-    SitesModule,
     AuthModule,
+    ProjectsModule,
+    SitesModule,
+    StepsModule,
     UsersModule,
   ],
 })
