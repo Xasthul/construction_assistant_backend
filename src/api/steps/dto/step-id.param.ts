@@ -4,6 +4,6 @@ import { IsUUID } from "class-validator";
 export class StepIdParam {
 
     @IsUUID()
-    @ApiProperty({ description: 'Step ID' })
+    @ApiProperty({ description: 'Step id' })
     id: string
 }
