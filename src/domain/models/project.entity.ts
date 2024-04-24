@@ -1,4 +1,4 @@
-import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Site } from "./site.entity";
 import { User } from "./user.entity";
 
@@ -12,9 +12,8 @@ export class Project {
     title: string
 
     @ManyToOne(() => User, (user) => user.projects, { onDelete: 'CASCADE' })
-    @JoinColumn({ name: 'userId' })
-    userId: string
+    user: User
 
-    @OneToMany(() => Site, (site) => site.projectId)
+    @OneToMany(() => Site, (site) => site.project)
     sites: Site[]
 }

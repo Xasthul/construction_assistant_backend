@@ -20,6 +20,5 @@ export class Step {
     isCompleted: boolean
 
     @ManyToOne(() => Site, (site) => site.steps, { onDelete: 'CASCADE' })
-    @JoinColumn({ name: 'siteId' })
-    siteId: string
+    site: Site
 }
