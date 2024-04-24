@@ -17,7 +17,8 @@ export const typeOrmAsyncConfig: TypeOrmModuleAsyncOptions = {
             password: configService.get<string>('dbPassword'),
             database: configService.get<string>('dbDatabase'),
             entities: [User, Project, Site, Step],
-            synchronize: false,
+            // TODO: must be false in prod
+            synchronize: true,
         }
     }
 }
