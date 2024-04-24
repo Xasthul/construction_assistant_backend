@@ -11,6 +11,10 @@ export class ProjectsService {
         private projectRepository: Repository<Project>
     ) { }
 
+    async findAll(userId: string) {
+        return await this.projectRepository.find({ where: { userId: userId } });
+    }
+
     async create(createProjectDto: CreateProjectDto) {
         const project = new Project();
         project.title = createProjectDto.title;
