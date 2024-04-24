@@ -3,7 +3,7 @@ import { ProjectsService } from './projects.service';
 import { CreateProjectDto } from './dto/create-project.dto';
 import { ProjectIdParam } from './dto/project-id.param';
 import { JwtAuthGuard } from '../auth/jwt-auth-guard';
-import { User } from '../common/decorators/user.decorator';
+import { RequestUser } from '../common/decorators/request-user.decorator';
 import { JwtPayload } from '../auth/dto/jwt-payload';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
@@ -15,7 +15,7 @@ export class ProjectsController {
     constructor(private projectsService: ProjectsService) { }
 
     @Get()
-    findAll(@User() user: JwtPayload) {
+    findAll(@RequestUser() user: JwtPayload) {
         return user.id
     }
 
