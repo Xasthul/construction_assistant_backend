@@ -1,5 +1,5 @@
-import { Exclude } from "class-transformer";
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Project } from "./project.entity";
 
 @Entity('users')
 export class User {
@@ -12,4 +12,7 @@ export class User {
 
     @Column()
     password: string
+
+    @OneToMany(() => Project, (project) => project.userId)
+    projects: Project[]
 }

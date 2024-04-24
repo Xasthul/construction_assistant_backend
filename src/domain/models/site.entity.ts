@@ -11,10 +11,10 @@ export class Site {
     @Column()
     title: string
 
-    @OneToMany(() => Step, (step) => step.siteId)
-    steps: Step[]
-
     @ManyToOne(() => Project, (project) => project.sites, { onDelete: 'CASCADE' })
     @JoinColumn({ name: 'projectId' })
     projectId: string
+
+    @OneToMany(() => Step, (step) => step.siteId)
+    steps: Step[]
 }
