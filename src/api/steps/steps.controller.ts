@@ -18,7 +18,7 @@ export class StepsController {
     @Get()
     @HttpCode(HttpStatus.OK)
     @ApiOperation({ summary: 'Get all steps' })
-    @ApiResponse({ status: 200, type: StepItemsResource })
+    @ApiResponse({ status: HttpStatus.OK, type: StepItemsResource })
     async findAll() {
         const steps = await this.stepsService.findAll();
 
@@ -28,7 +28,7 @@ export class StepsController {
     @Post()
     @HttpCode(HttpStatus.CREATED)
     @ApiOperation({ summary: 'Create new step' })
-    @ApiResponse({ status: 201, type: StepResource })
+    @ApiResponse({ status: HttpStatus.CREATED, type: StepResource })
     async create(@Body() createStepDto: CreateStepDto) {
         const step = await this.stepsService.create(createStepDto);
 
@@ -38,7 +38,7 @@ export class StepsController {
     @Put(':id')
     @HttpCode(HttpStatus.OK)
     @ApiOperation({ summary: 'Update step' })
-    @ApiResponse({ status: 200 })
+    @ApiResponse({ status: HttpStatus.OK })
     update(
         @Param() stepIdParam: StepIdParam,
         @Body() updateStepDto: UpdateStepDto,
@@ -49,7 +49,7 @@ export class StepsController {
     @Delete(':id')
     @HttpCode(HttpStatus.OK)
     @ApiOperation({ summary: 'Remove step' })
-    @ApiResponse({ status: 200 })
+    @ApiResponse({ status: HttpStatus.OK })
     delete(@Param() stepIdParam: StepIdParam) {
         return this.stepsService.delete(stepIdParam.id);
     }
@@ -57,7 +57,7 @@ export class StepsController {
     @Put('complete/:id')
     @HttpCode(HttpStatus.OK)
     @ApiOperation({ summary: 'Complete step' })
-    @ApiResponse({ status: 200 })
+    @ApiResponse({ status: HttpStatus.OK })
     complete(@Param() stepIdParam: StepIdParam) {
         return this.stepsService.complete(stepIdParam.id);
     }
