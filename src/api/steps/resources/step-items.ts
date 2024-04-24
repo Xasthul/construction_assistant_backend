@@ -1,6 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger"
 import { Step } from "src/domain/models/step.entity"
-import { StepResource } from "./step-resource";
+import { StepResource } from "./step";
 
 export class StepItemsResource {
 

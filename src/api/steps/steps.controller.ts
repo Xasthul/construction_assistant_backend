@@ -5,8 +5,8 @@ import { StepIdParam } from './dto/step-id.param';
 import { UpdateStepDto } from './dto/update-step.dto';
 import { JwtAuthGuard } from '../auth/jwt-auth-guard';
 import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { StepItemsResource } from './resources/step-items-resource';
-import { StepResource } from './resources/step-resource';
+import { StepItemsResource } from './resources/step-items';
+import { StepResource } from './resources/step';
 
 @Controller('steps')
 @UseGuards(JwtAuthGuard)
