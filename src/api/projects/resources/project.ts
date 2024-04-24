@@ -3,10 +3,10 @@ import { Project } from "src/domain/models/project.entity";
 
 export class ProjectResource {
 
-    @ApiProperty({ description: 'Project id' })
+    @ApiProperty()
     readonly id: string
 
-    @ApiProperty({ description: 'Project title' })
+    @ApiProperty()
     readonly title: string
 
     constructor(project: Project) {

@@ -1,7 +1,7 @@
 import { ApiProperty } from "@nestjs/swagger";
 
 export class LoginResource {
-    @ApiProperty({ description: "User's accessToken for authentication" })
+    @ApiProperty()
     readonly accessToken: string
 
     constructor(accessToken: string) {

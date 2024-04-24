@@ -4,7 +4,6 @@ import { ProjectResource } from "./project";
 export class ProjectItemsResource {
 
     @ApiProperty({
-        description: 'Array of projects',
         isArray: true,
         type: ProjectResource,
     })

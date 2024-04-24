@@ -5,7 +5,6 @@ import { StepResource } from "./step";
 export class StepItemsResource {
 
     @ApiProperty({
-        description: 'Array of steps',
         isArray: true,
         type: StepResource
     })

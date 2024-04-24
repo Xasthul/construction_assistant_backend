@@ -3,22 +3,22 @@ import { Step } from "src/domain/models/step.entity"
 
 export class StepResource {
 
-    @ApiProperty({ description: 'Step id' })
+    @ApiProperty()
     readonly id: string
 
-    @ApiProperty({ description: 'Step title' })
+    @ApiProperty()
     readonly title: string
 
-    @ApiProperty({ description: 'Step details' })
+    @ApiProperty()
     readonly details: string
 
-    @ApiProperty({ description: 'Array of base64 encoded assets' })
+    @ApiProperty()
     readonly assets: string[]
 
-    @ApiProperty({ description: 'Is step completed' })
+    @ApiProperty()
     readonly isCompleted: boolean
 
-    @ApiProperty({ description: "Related site's id" })
+    @ApiProperty()
     readonly siteId: string
 
     constructor(step: Step) {
