@@ -27,7 +27,7 @@ export class StepResource {
         this.details = step.details;
         this.assets = step.assets;
         this.isCompleted = step.isCompleted;
-        this.siteId = step.siteId;
+        this.siteId = step.site.id;
     }
 
     static from(step: Step): StepResource {
