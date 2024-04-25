@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Project } from '../../domain/models/project.entity';
 import { Repository } from 'typeorm';
@@ -13,9 +13,24 @@ export class ProjectsService {
 
     async findAll(userId: string): Promise<Project[]> {
         return await this.projectRepository.find({
+            where: { user: { id: userId } },
             relations: { user: false, sites: false },
-            where: { user: { id: userId } }
         });
+    }
+
+    async findById(projectId: string, userId: string): Promise<Project> {
+        const project = await this.projectRepository.findOne({
+            where: {
+                id: projectId,
+                user: { id: userId },
+            },
+            relations: { user: false, sites: false },
+        });
+
+        if (!project) {
+            throw new NotFoundException();
+        }
+        return project;
     }
 
     async create(createProjectDto: CreateProjectDto) {
