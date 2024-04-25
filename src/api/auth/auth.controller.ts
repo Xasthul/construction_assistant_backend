@@ -13,7 +13,8 @@ export class AuthController {
     @Post('signup')
     @HttpCode(HttpStatus.CREATED)
     @ApiOperation({ summary: 'Register new user' })
-    @ApiResponse({ status: 201 })
+    @ApiResponse({ status: HttpStatus.CREATED })
+    @ApiResponse({ status: HttpStatus.CONFLICT, description: 'User with such email already exists' })
     signUp(@Body() createUserDto: CreateUserDto) {
         return this.authService.signUp(createUserDto);
     }
@@ -22,7 +23,7 @@ export class AuthController {
     @HttpCode(HttpStatus.OK)
     @ApiOperation({ summary: 'Login user' })
     @ApiResponse({
-        status: 200,
+        status: HttpStatus.OK,
         type: LoginResource
     })
     async login(@Body() loginDto: LoginDto) {
