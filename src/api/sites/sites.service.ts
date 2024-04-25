@@ -21,7 +21,8 @@ export class SitesService {
         }
         const site = new Site();
         site.title = createSiteDto.title;
-        site.project = project;
+        // TODO: check if setting projectId is enough or 'project' has to be set instead
+        site.projectId = project.id;
         return await this.siteRepository.save(site);
     }
 }
