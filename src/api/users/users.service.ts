@@ -25,4 +25,8 @@ export class UsersService {
         }
         return user;
     }
+
+    async exists(email: string): Promise<boolean> {
+        return await this.usersRepository.existsBy({ email: email });
+    }
 }
