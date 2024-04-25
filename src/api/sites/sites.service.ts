@@ -21,7 +21,7 @@ export class SitesService {
         }
         const site = new Site();
         site.title = createSiteDto.title;
-        site.projectId = createSiteDto.projectId;
+        site.project = project;
         return await this.siteRepository.save(site);
     }
 }
