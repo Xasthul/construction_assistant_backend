@@ -19,6 +19,9 @@ export class Step {
     @Column({ default: false })
     isCompleted: boolean
 
+    @Column('uuid')
+    siteId: string
+
     @ManyToOne(() => Site, (site) => site.steps, { onDelete: 'CASCADE' })
     site: Site
 }

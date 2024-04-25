@@ -11,6 +11,9 @@ export class Site {
     @Column()
     title: string
 
+    @Column('uuid')
+    projectId: string
+
     @ManyToOne(() => Project, (project) => project.sites, { onDelete: 'CASCADE' })
     project: Project
 

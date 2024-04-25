@@ -11,6 +11,9 @@ export class Project {
     @Column()
     title: string
 
+    @Column('uuid')
+    userId: string
+
     @ManyToOne(() => User, (user) => user.projects, { onDelete: 'CASCADE' })
     user: User
 
