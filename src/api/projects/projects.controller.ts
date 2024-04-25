@@ -8,6 +8,7 @@ import { JwtPayload } from '../auth/dto/jwt-payload';
 import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ProjectItemsResource } from './resources/project-items';
 import { ProjectResource } from './resources/project';
+import { ProjectItemResource } from './resources/project-item';
 
 @Controller('projects')
 @UseGuards(JwtAuthGuard)
@@ -31,8 +32,16 @@ export class ProjectsController {
     }
 
     @Get(':id')
-    findOne() {
-        return 'Project by id'
+    @HttpCode(HttpStatus.OK)
+    @ApiOperation({ description: "Get user's project by id" })
+    @ApiResponse({ status: HttpStatus.OK, type: ProjectItemsResource })
+    async findById(
+        @Param() projectIdParam: ProjectIdParam,
+        @RequestUser() user: JwtPayload,
+    ) {
+        const project = await this.projectsService.findById(projectIdParam.id, user.id);
+
+        return ProjectItemResource.from(project);
     }
 
     @Post()
