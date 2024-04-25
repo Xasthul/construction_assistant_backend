@@ -22,7 +22,11 @@ export class StepsController {
     async findAll() {
         const steps = await this.stepsService.findAll();
 
-        return StepItemsResource.from(steps);
+        return StepItemsResource.from(
+            steps.map(
+                (step) => StepResource.from(step),
+            ),
+        );
     }
 
     @Post()

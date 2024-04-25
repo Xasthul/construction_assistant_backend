@@ -1,5 +1,4 @@
 import { ApiProperty } from "@nestjs/swagger"
-import { Step } from "src/domain/models/step.entity"
 import { StepResource } from "./step";
 
 export class StepItemsResource {
@@ -10,11 +9,11 @@ export class StepItemsResource {
     })
     readonly data: StepResource[]
 
-    constructor(steps: Step[]) {
+    constructor(steps: StepResource[]) {
         this.data = steps;
     }
 
-    static from(steps: Step[]): StepItemsResource {
+    static from(steps: StepResource[]): StepItemsResource {
         return new StepItemsResource(steps);
     }
 }
