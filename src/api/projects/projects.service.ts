@@ -1,8 +1,9 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Project } from '../../domain/models/project.entity';
-import { Repository } from 'typeorm';
+import { DataSource, Repository } from 'typeorm';
 import { CreateProjectDto } from './dto/create-project.dto';
+import { UpdateProjectDto } from './dto/update-project.dto';
 
 @Injectable()
 export class ProjectsService {
@@ -22,7 +23,7 @@ export class ProjectsService {
         const project = await this.projectRepository.findOne({
             where: {
                 id: projectId,
-                user: { id: userId },
+                userId: userId,
             },
             relations: { user: false, sites: false },
         });
@@ -38,6 +39,24 @@ export class ProjectsService {
         project.title = createProjectDto.title;
         project.userId = userId;
         await this.projectRepository.save(project);
+    }
+
+    async update(
+        projectId: string,
+        updateProjectDto: UpdateProjectDto,
+        userId: string,
+    ): Promise<void> {
+        const project = await this.projectRepository.findOne({
+            where: {
+                id: projectId,
+                userId: userId,
+            },
+            relations: { user: false, sites: false },
+        });
+        if (!project) {
+            throw new NotFoundException();
+        }
+        await this.projectRepository.update(projectId, updateProjectDto);
     }
 
     async delete(projectId: string, userId: string): Promise<void> {
