@@ -5,13 +5,13 @@ export class CreateStepDto {
 
     @IsString()
     @IsNotEmpty()
-    @ApiProperty({ description: 'Step title' })
+    @ApiProperty()
     readonly title: string
 
     @IsString()
     @IsNotEmpty()
     @IsOptional()
-    @ApiProperty({ description: 'Step details' })
+    @ApiProperty()
     readonly details: string
 
     @IsArray()

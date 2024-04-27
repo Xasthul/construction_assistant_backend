@@ -6,13 +6,13 @@ export class UpdateStepDto {
     @IsString()
     @IsNotEmpty()
     @IsOptional()
-    @ApiProperty({ description: 'Step title' })
+    @ApiProperty()
     readonly title: string
 
     @IsString()
     @IsNotEmpty()
     @IsOptional()
-    @ApiProperty({ description: 'Step details' })
+    @ApiProperty()
     readonly details: string
 
     @IsArray()
