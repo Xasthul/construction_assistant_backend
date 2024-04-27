@@ -33,9 +33,10 @@ export class ProjectsService {
         return project;
     }
 
-    async create(createProjectDto: CreateProjectDto) {
+    async create(userId: string, createProjectDto: CreateProjectDto): Promise<Project> {
         const project = new Project();
         project.title = createProjectDto.title;
+        project.userId = userId;
         return await this.projectRepository.save(project);
     }
 
