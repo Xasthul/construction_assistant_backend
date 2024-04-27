@@ -1,6 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger"
 import { ProjectResource } from "./project";
-import { Project } from "src/domain/models/project.entity";
 
 export class ProjectItemResource {
 
@@ -11,7 +10,7 @@ export class ProjectItemResource {
         this.data = project;
     }
 
-    static from(project: Project): ProjectItemResource {
+    static from(project: ProjectResource): ProjectItemResource {
         return new ProjectItemResource(project);
     }
 }
