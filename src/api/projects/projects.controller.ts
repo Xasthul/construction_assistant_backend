@@ -9,6 +9,7 @@ import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagg
 import { ProjectItemsResource } from './resources/project-items';
 import { ProjectResource } from './resources/project';
 import { ProjectItemResource } from './resources/project-item';
+import { UpdateProjectDto } from './dto/update-project.dto';
 
 @Controller('projects')
 @UseGuards(JwtAuthGuard)
@@ -49,6 +50,7 @@ export class ProjectsController {
     @Post()
     @HttpCode(HttpStatus.CREATED)
     @ApiOperation({ summary: "Create new project" })
+    @ApiResponse({ status: HttpStatus.CREATED })
     create(
         @Body() createProjectDto: CreateProjectDto,
         @RequestUser() user: JwtPayload,
@@ -57,13 +59,22 @@ export class ProjectsController {
     }
 
     @Put(':id')
-    update() {
-        return 'Update project'
+    @HttpCode(HttpStatus.OK)
+    @ApiOperation({ summary: "Update user's project" })
+    @ApiResponse({ status: HttpStatus.OK })
+    @ApiResponse({ status: HttpStatus.NOT_FOUND, description: 'Project with such id not found' })
+    update(
+        @Param() projectIdParam: ProjectIdParam,
+        @Body() updateProjectDto: UpdateProjectDto,
+        @RequestUser() user: JwtPayload,
+    ) {
+        return this.projectsService.update(projectIdParam.id, updateProjectDto, user.id)
     }
 
     @Delete(':id')
     @HttpCode(HttpStatus.OK)
     @ApiOperation({ summary: "Remove user's project" })
+    @ApiResponse({ status: HttpStatus.OK })
     @ApiResponse({ status: HttpStatus.NOT_FOUND, description: 'Project with such id not found' })
     delete(
         @Param() projectIdParam: ProjectIdParam,
