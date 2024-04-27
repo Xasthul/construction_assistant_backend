@@ -40,7 +40,10 @@ export class ProjectsService {
         await this.projectRepository.save(project);
     }
 
-    async delete(projectId: string, userId: string) {
-        return await this.projectRepository.delete({ id: projectId });
+    async delete(projectId: string, userId: string): Promise<void> {
+        const result = await this.projectRepository.delete({ userId: userId, id: projectId });
+        if (result.affected < 1) {
+            throw new NotFoundException();
+        }
     }
 }
