@@ -19,7 +19,7 @@ export class ProjectsController {
 
     @Get()
     @HttpCode(HttpStatus.OK)
-    @ApiOperation({ description: "Get all user's projects" })
+    @ApiOperation({ summary: "Get all user's projects" })
     @ApiResponse({ status: HttpStatus.OK, type: ProjectItemsResource })
     async findAll(@RequestUser() user: JwtPayload) {
         const projects = await this.projectsService.findAll(user.id);
@@ -33,21 +33,32 @@ export class ProjectsController {
 
     @Get(':id')
     @HttpCode(HttpStatus.OK)
-    @ApiOperation({ description: "Get user's project by id" })
-    @ApiResponse({ status: HttpStatus.OK, type: ProjectItemsResource })
+    @ApiOperation({ summary: "Get user's project by id" })
+    @ApiResponse({ status: HttpStatus.OK, type: ProjectItemResource })
     async findById(
         @Param() projectIdParam: ProjectIdParam,
         @RequestUser() user: JwtPayload,
     ) {
         const project = await this.projectsService.findById(projectIdParam.id, user.id);
 
-        return ProjectItemResource.from(project);
+        return ProjectItemResource.from(
+            ProjectResource.from(project)
+        );
     }
 
     @Post()
     @HttpCode(HttpStatus.CREATED)
-    create(@Body() createProjectDto: CreateProjectDto) {
-        return this.projectsService.create(createProjectDto);
+    @ApiOperation({ summary: "Create new project" })
+    @ApiResponse({ status: HttpStatus.CREATED, type: ProjectItemResource })
+    async create(
+        @Body() createProjectDto: CreateProjectDto,
+        @RequestUser() user: JwtPayload,
+    ) {
+        const newProject = await this.projectsService.create(user.id, createProjectDto);
+
+        return ProjectItemResource.from(
+            ProjectResource.from(newProject)
+        );
     }
 
     @Put(':id')
