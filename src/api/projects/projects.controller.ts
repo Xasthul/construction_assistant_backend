@@ -62,6 +62,9 @@ export class ProjectsController {
     }
 
     @Delete(':id')
+    @HttpCode(HttpStatus.OK)
+    @ApiOperation({ summary: "Remove user's project" })
+    @ApiResponse({ status: HttpStatus.NOT_FOUND, description: 'Project with such id not found' })
     delete(
         @Param() projectIdParam: ProjectIdParam,
         @RequestUser() user: JwtPayload,
