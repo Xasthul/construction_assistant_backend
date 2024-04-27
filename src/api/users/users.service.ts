@@ -26,14 +26,6 @@ export class UsersService {
         return user;
     }
 
-    async findOneById(id: string) {
-        const user = await this.usersRepository.findOneBy({ id: id });
-        if (!user) {
-            throw new NotFoundException();
-        }
-        return user;
-    }
-
     async exists(email: string): Promise<boolean> {
         return await this.usersRepository.existsBy({ email: email });
     }
