@@ -49,16 +49,11 @@ export class ProjectsController {
     @Post()
     @HttpCode(HttpStatus.CREATED)
     @ApiOperation({ summary: "Create new project" })
-    @ApiResponse({ status: HttpStatus.CREATED, type: ProjectItemResource })
-    async create(
+    create(
         @Body() createProjectDto: CreateProjectDto,
         @RequestUser() user: JwtPayload,
     ) {
-        const newProject = await this.projectsService.create(user.id, createProjectDto);
-
-        return ProjectItemResource.from(
-            ProjectResource.from(newProject)
-        );
+        return this.projectsService.create(createProjectDto, user.id);
     }
 
     @Put(':id')
@@ -67,7 +62,10 @@ export class ProjectsController {
     }
 
     @Delete(':id')
-    delete(@Param() projectIdParam: ProjectIdParam) {
-        return this.projectsService.delete(projectIdParam.id);
+    delete(
+        @Param() projectIdParam: ProjectIdParam,
+        @RequestUser() user: JwtPayload,
+    ) {
+        return this.projectsService.delete(projectIdParam.id, user.id);
     }
 }

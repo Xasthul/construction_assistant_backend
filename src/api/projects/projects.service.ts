@@ -33,14 +33,14 @@ export class ProjectsService {
         return project;
     }
 
-    async create(userId: string, createProjectDto: CreateProjectDto): Promise<Project> {
+    async create(createProjectDto: CreateProjectDto, userId: string): Promise<void> {
         const project = new Project();
         project.title = createProjectDto.title;
         project.userId = userId;
-        return await this.projectRepository.save(project);
+        await this.projectRepository.save(project);
     }
 
-    async delete(id: string) {
-        return await this.projectRepository.delete({ id: id });
+    async delete(projectId: string, userId: string) {
+        return await this.projectRepository.delete({ id: projectId });
     }
 }
