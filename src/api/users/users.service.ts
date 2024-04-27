@@ -18,8 +18,16 @@ export class UsersService {
         return await this.usersRepository.save(user);
     }
 
-    async findOne(email: string) {
+    async findOneByEmail(email: string) {
         const user = await this.usersRepository.findOneBy({ email: email });
+        if (!user) {
+            throw new NotFoundException();
+        }
+        return user;
+    }
+
+    async findOneById(id: string) {
+        const user = await this.usersRepository.findOneBy({ id: id });
         if (!user) {
             throw new NotFoundException();
         }
