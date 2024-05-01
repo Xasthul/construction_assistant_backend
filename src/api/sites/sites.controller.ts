@@ -26,7 +26,7 @@ export class SitesController {
         @Query() projectIdParam: ProjectIdParam,
         @RequestUser() user: JwtPayload,
     ) {
-        const sites = await this.sitesService.findAll(projectIdParam.id, user.id);
+        const sites = await this.sitesService.findAll(projectIdParam.projectId, user.id);
 
         return SiteItemsResource.from(
             sites.map(
@@ -58,8 +58,8 @@ export class SitesController {
         @RequestUser() user: JwtPayload,
     ) {
         return this.sitesService.update(
-            projectIdParam.id,
-            siteIdParam.id,
+            projectIdParam.projectId,
+            siteIdParam.siteId,
             updateSiteDto,
             user.id,
         );
@@ -75,6 +75,10 @@ export class SitesController {
         @Param() siteIdParam: SiteIdParam,
         @RequestUser() user: JwtPayload,
     ) {
-        return this.sitesService.delete(projectIdParam.id, siteIdParam.id, user.id);
+        return this.sitesService.delete(
+            projectIdParam.projectId,
+            siteIdParam.siteId,
+            user.id
+        );
     }
 }
