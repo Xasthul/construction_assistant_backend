@@ -81,8 +81,25 @@ export class StepsService {
         await this.stepRepository.update(stepId, updateStepDto);
     }
 
-    async delete(id: string) {
-        await this.stepRepository.delete({ id: id });
+    async delete(
+        projectId: string,
+        siteId: string,
+        stepId: string,
+        userId: string,
+    ): Promise<void> {
+        const result = await this.stepRepository.delete({
+            site: {
+                project: {
+                    userId: userId,
+                    id: projectId,
+                },
+                id: siteId,
+            },
+            id: stepId,
+        });
+        if (result.affected < 1) {
+            throw new NotFoundException();
+        }
     }
 
     async complete(id: string) {

@@ -78,8 +78,19 @@ export class StepsController {
     @HttpCode(HttpStatus.OK)
     @ApiOperation({ summary: 'Remove step' })
     @ApiResponse({ status: HttpStatus.OK })
-    delete(@Param() stepIdParam: StepIdParam) {
-        return this.stepsService.delete(stepIdParam.stepId);
+    @ApiResponse({ status: HttpStatus.NOT_FOUND, description: 'Step not found' })
+    delete(
+        @Query() projectIdParam: ProjectIdParam,
+        @Query() siteIdParam: SiteIdParam,
+        @Param() stepIdParam: StepIdParam,
+        @RequestUser() user: JwtPayload,
+    ) {
+        return this.stepsService.delete(
+            projectIdParam.projectId,
+            siteIdParam.siteId,
+            stepIdParam.stepId,
+            user.id,
+        );
     }
 
     @Put('complete/:id')
