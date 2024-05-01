@@ -65,4 +65,21 @@ export class SitesService {
         }
         await this.siteRepository.update(siteId, updateSiteDto);
     }
+
+    async delete(
+        projectId: string,
+        siteId: string,
+        userId: string
+    ): Promise<void> {
+        const result = await this.siteRepository.delete({
+            project: {
+                userId: userId,
+                id: projectId,
+            },
+            id: siteId,
+        });
+        if (result.affected < 1) {
+            throw new NotFoundException();
+        }
+    }
 }

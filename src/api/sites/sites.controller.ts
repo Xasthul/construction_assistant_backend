@@ -1,4 +1,4 @@
-import { Body, Controller, Get, HttpCode, HttpStatus, Param, Post, Put, Query, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Post, Put, Query, UseGuards } from '@nestjs/common';
 import { SitesService } from './sites.service';
 import { CreateSiteDto } from './dto/create-site.dto';
 import { JwtAuthGuard } from '../auth/jwt-auth-guard';
@@ -63,5 +63,18 @@ export class SitesController {
             updateSiteDto,
             user.id,
         );
+    }
+
+    @Delete(':id')
+    @HttpCode(HttpStatus.OK)
+    @ApiOperation({ summary: "Remove site" })
+    @ApiResponse({ status: HttpStatus.OK })
+    @ApiResponse({ status: HttpStatus.NOT_FOUND, description: 'Site not found' })
+    delete(
+        @Query() projectIdParam: ProjectIdParam,
+        @Param() siteIdParam: SiteIdParam,
+        @RequestUser() user: JwtPayload,
+    ) {
+        return this.sitesService.delete(projectIdParam.id, siteIdParam.id, user.id);
     }
 }
