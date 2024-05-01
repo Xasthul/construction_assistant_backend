@@ -12,8 +12,22 @@ export class StepsService {
         private stepRepository: Repository<Step>
     ) { }
 
-    async findAll(): Promise<Step[]> {
-        return await this.stepRepository.find();
+    async findAll(
+        projectId: string,
+        siteId: string,
+        userId: string
+    ): Promise<Step[]> {
+        return await this.stepRepository.find({
+            where: {
+                site: {
+                    project: {
+                        id: projectId,
+                        userId: userId,
+                    },
+                    id: siteId,
+                },
+            }
+        });
     }
 
     async create(createStepDto: CreateStepDto): Promise<Step> {

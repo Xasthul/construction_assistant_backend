@@ -5,5 +5,5 @@ export class StepIdParam {
 
     @IsUUID()
     @ApiProperty()
-    id: string
+    stepId: string
 }

@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Post, Put, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Post, Put, Query, UseGuards } from '@nestjs/common';
 import { StepsService } from './steps.service';
 import { CreateStepDto } from './dto/create-step.dto';
 import { StepIdParam } from './dto/step-id.param';
@@ -7,6 +7,10 @@ import { JwtAuthGuard } from '../auth/jwt-auth-guard';
 import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { StepItemsResource } from './resources/step-items';
 import { StepResource } from './resources/step';
+import { ProjectIdParam } from '../projects/dto/project-id.param';
+import { SiteIdParam } from '../sites/dto/site-id.param';
+import { RequestUser } from '../common/decorators/request-user.decorator';
+import { JwtPayload } from '../auth/dto/jwt-payload';
 
 @Controller('steps')
 @UseGuards(JwtAuthGuard)
@@ -19,8 +23,16 @@ export class StepsController {
     @HttpCode(HttpStatus.OK)
     @ApiOperation({ summary: 'Get all steps' })
     @ApiResponse({ status: HttpStatus.OK, type: StepItemsResource })
-    async findAll() {
-        const steps = await this.stepsService.findAll();
+    async findAll(
+        @Query() projectIdParam: ProjectIdParam,
+        @Query() siteIdParam: SiteIdParam,
+        @RequestUser() user: JwtPayload,
+    ) {
+        const steps = await this.stepsService.findAll(
+            projectIdParam.projectId,
+            siteIdParam.siteId,
+            user.id,
+        );
 
         return StepItemsResource.from(
             steps.map(
@@ -47,7 +59,7 @@ export class StepsController {
         @Param() stepIdParam: StepIdParam,
         @Body() updateStepDto: UpdateStepDto,
     ) {
-        return this.stepsService.update(stepIdParam.id, updateStepDto);
+        return this.stepsService.update(stepIdParam.stepId, updateStepDto);
     }
 
     @Delete(':id')
@@ -55,7 +67,7 @@ export class StepsController {
     @ApiOperation({ summary: 'Remove step' })
     @ApiResponse({ status: HttpStatus.OK })
     delete(@Param() stepIdParam: StepIdParam) {
-        return this.stepsService.delete(stepIdParam.id);
+        return this.stepsService.delete(stepIdParam.stepId);
     }
 
     @Put('complete/:id')
@@ -63,6 +75,6 @@ export class StepsController {
     @ApiOperation({ summary: 'Complete step' })
     @ApiResponse({ status: HttpStatus.OK })
     complete(@Param() stepIdParam: StepIdParam) {
-        return this.stepsService.complete(stepIdParam.id);
+        return this.stepsService.complete(stepIdParam.stepId);
     }
 }
