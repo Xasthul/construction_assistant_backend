@@ -14,15 +14,20 @@ export class SitesService {
         private siteRepository: Repository<Site>
     ) { }
 
-    async create(createSiteDto: CreateSiteDto) {
-        const project = await this.projectRepository.findOneBy({ id: createSiteDto.projectId });
+    async create(createSiteDto: CreateSiteDto, userId: string): Promise<void> {
+        const project = await this.projectRepository.findOne({
+            where: {
+                id: createSiteDto.projectId,
+                userId: userId,
+            },
+            relations: { user: false, sites: false },
+        });
         if (!project) {
             throw new NotFoundException('Project with such id was not found');
         }
         const site = new Site();
         site.title = createSiteDto.title;
-        // TODO: check if setting projectId is enough or 'project' has to be set instead
         site.projectId = project.id;
-        return await this.siteRepository.save(site);
+        await this.siteRepository.save(site);
     }
 }

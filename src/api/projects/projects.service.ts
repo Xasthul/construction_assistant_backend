@@ -27,7 +27,6 @@ export class ProjectsService {
             },
             relations: { user: false, sites: false },
         });
-
         if (!project) {
             throw new NotFoundException();
         }
