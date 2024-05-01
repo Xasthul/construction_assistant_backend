@@ -1,7 +1,15 @@
 import { ApiProperty } from "@nestjs/swagger"
-import { IsArray, IsNotEmpty, IsOptional, IsString } from "class-validator"
+import { IsArray, IsNotEmpty, IsOptional, IsString, IsUUID } from "class-validator"
 
 export class CreateStepDto {
+
+    @IsUUID()
+    @ApiProperty()
+    readonly projectId: string
+
+    @IsUUID()
+    @ApiProperty()
+    readonly siteId: string
 
     @IsString()
     @IsNotEmpty()

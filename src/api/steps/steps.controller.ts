@@ -45,10 +45,12 @@ export class StepsController {
     @HttpCode(HttpStatus.CREATED)
     @ApiOperation({ summary: 'Create new step' })
     @ApiResponse({ status: HttpStatus.CREATED, type: StepResource })
-    async create(@Body() createStepDto: CreateStepDto) {
-        const step = await this.stepsService.create(createStepDto);
-
-        return StepResource.from(step);
+    @ApiResponse({ status: HttpStatus.NOT_FOUND, description: "Project or site with such id was not found" })
+    create(
+        @Body() createStepDto: CreateStepDto,
+        @RequestUser() user: JwtPayload,
+    ) {
+        return this.stepsService.create(createStepDto, user.id);
     }
 
     @Put(':id')

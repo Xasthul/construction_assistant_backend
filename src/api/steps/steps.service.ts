@@ -1,13 +1,16 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Step } from '../../domain/models/step.entity';
 import { Repository } from 'typeorm';
 import { CreateStepDto } from './dto/create-step.dto';
 import { UpdateStepDto } from './dto/update-step.dto';
+import { Site } from 'src/domain/models/site.entity';
 
 @Injectable()
 export class StepsService {
     constructor(
+        @InjectRepository(Step)
+        private siteRepository: Repository<Site>,
         @InjectRepository(Step)
         private stepRepository: Repository<Step>
     ) { }
@@ -30,12 +33,26 @@ export class StepsService {
         });
     }
 
-    async create(createStepDto: CreateStepDto): Promise<Step> {
+    async create(createStepDto: CreateStepDto, userId: string): Promise<void> {
+        const site = await this.siteRepository.findOne({
+            where: {
+                project: {
+                    id: createStepDto.projectId,
+                    userId: userId,
+                },
+                id: createStepDto.siteId,
+            },
+            relations: { project: false, steps: false },
+        });
+        if (!site) {
+            throw new NotFoundException('Site with such id was not found');
+        }
         const step = new Step();
         step.title = createStepDto.title;
         step.details = createStepDto.details;
         step.assets = createStepDto.assets;
-        return await this.stepRepository.save(step);
+        step.siteId = site.id;
+        await this.stepRepository.save(step);
     }
 
     async update(id: string, updateStepDto: UpdateStepDto) {
