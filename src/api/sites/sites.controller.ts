@@ -47,7 +47,7 @@ export class SitesController {
         return this.sitesService.create(createSiteDto, user.id);
     }
 
-    @Put(':id')
+    @Put(':siteId')
     @HttpCode(HttpStatus.OK)
     @ApiOperation({ summary: "Update site" })
     @ApiResponse({ status: HttpStatus.OK })
@@ -65,7 +65,7 @@ export class SitesController {
         );
     }
 
-    @Delete(':id')
+    @Delete(':siteId')
     @HttpCode(HttpStatus.OK)
     @ApiOperation({ summary: "Remove site" })
     @ApiResponse({ status: HttpStatus.OK })

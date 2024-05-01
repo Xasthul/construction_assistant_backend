@@ -32,7 +32,7 @@ export class ProjectsController {
         );
     }
 
-    @Get(':id')
+    @Get(':projectId')
     @HttpCode(HttpStatus.OK)
     @ApiOperation({ summary: "Get user's project by id" })
     @ApiResponse({ status: HttpStatus.OK, type: ProjectItemResource })
@@ -58,7 +58,7 @@ export class ProjectsController {
         return this.projectsService.create(createProjectDto, user.id);
     }
 
-    @Put(':id')
+    @Put(':projectId')
     @HttpCode(HttpStatus.OK)
     @ApiOperation({ summary: "Update user's project" })
     @ApiResponse({ status: HttpStatus.OK })
@@ -71,7 +71,7 @@ export class ProjectsController {
         return this.projectsService.update(projectIdParam.projectId, updateProjectDto, user.id)
     }
 
-    @Delete(':id')
+    @Delete(':projectId')
     @HttpCode(HttpStatus.OK)
     @ApiOperation({ summary: "Remove user's project" })
     @ApiResponse({ status: HttpStatus.OK })

@@ -53,7 +53,7 @@ export class StepsController {
         return this.stepsService.create(createStepDto, user.id);
     }
 
-    @Put(':id')
+    @Put(':stepId')
     @HttpCode(HttpStatus.OK)
     @ApiOperation({ summary: 'Update step' })
     @ApiResponse({ status: HttpStatus.OK })
@@ -74,7 +74,7 @@ export class StepsController {
         );
     }
 
-    @Delete(':id')
+    @Delete(':stepId')
     @HttpCode(HttpStatus.OK)
     @ApiOperation({ summary: 'Remove step' })
     @ApiResponse({ status: HttpStatus.OK })
@@ -93,7 +93,7 @@ export class StepsController {
         );
     }
 
-    @Put('complete/:id')
+    @Put('complete/:stepId')
     @HttpCode(HttpStatus.OK)
     @ApiOperation({ summary: 'Complete step' })
     @ApiResponse({ status: HttpStatus.OK })
