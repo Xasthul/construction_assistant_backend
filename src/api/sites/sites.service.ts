@@ -14,6 +14,18 @@ export class SitesService {
         private siteRepository: Repository<Site>
     ) { }
 
+    async findAll(projectId: string, userId: string): Promise<Site[]> {
+        return await this.siteRepository.find({
+            where: {
+                project: {
+                    id: projectId,
+                    userId: userId
+                }
+            },
+            relations: { project: false, steps: false },
+        });
+    }
+
     async create(createSiteDto: CreateSiteDto, userId: string): Promise<void> {
         const project = await this.projectRepository.findOne({
             where: {
