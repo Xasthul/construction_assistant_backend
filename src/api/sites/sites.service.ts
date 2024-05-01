@@ -4,6 +4,7 @@ import { Site } from '../../domain/models/site.entity';
 import { Repository } from 'typeorm';
 import { CreateSiteDto } from './dto/create-site.dto';
 import { Project } from '../../domain/models/project.entity';
+import { UpdateSiteDto } from './dto/update-site.dto';
 
 @Injectable()
 export class SitesService {
@@ -41,5 +42,27 @@ export class SitesService {
         site.title = createSiteDto.title;
         site.projectId = project.id;
         await this.siteRepository.save(site);
+    }
+
+    async update(
+        projectId: string,
+        siteId: string,
+        updateSiteDto: UpdateSiteDto,
+        userId: string
+    ): Promise<void> {
+        const site = await this.siteRepository.findOne({
+            where: {
+                project: {
+                    id: projectId,
+                    userId: userId
+                },
+                id: siteId,
+            },
+            relations: { project: false, steps: false },
+        });
+        if (!site) {
+            throw new NotFoundException();
+        }
+        await this.siteRepository.update(siteId, updateSiteDto);
     }
 }

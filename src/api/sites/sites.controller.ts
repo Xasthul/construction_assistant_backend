@@ -1,4 +1,4 @@
-import { Body, Controller, Get, HttpCode, HttpStatus, Post, Query, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, HttpStatus, Param, Post, Put, Query, UseGuards } from '@nestjs/common';
 import { SitesService } from './sites.service';
 import { CreateSiteDto } from './dto/create-site.dto';
 import { JwtAuthGuard } from '../auth/jwt-auth-guard';
@@ -8,6 +8,8 @@ import { JwtPayload } from '../auth/dto/jwt-payload';
 import { ProjectIdParam } from '../projects/dto/project-id.param';
 import { SiteItemsResource } from './resources/site-items';
 import { SiteResource } from './resources/site';
+import { SiteIdParam } from './dto/site-id.param';
+import { UpdateSiteDto } from './dto/update-site.dto';
 
 @Controller('sites')
 @UseGuards(JwtAuthGuard)
@@ -43,5 +45,23 @@ export class SitesController {
         @RequestUser() user: JwtPayload,
     ) {
         return this.sitesService.create(createSiteDto, user.id);
+    }
+
+    @Put(':id')
+    @HttpCode(HttpStatus.OK)
+    @ApiOperation({ summary: "Update site" })
+    @ApiResponse({ status: HttpStatus.OK })
+    update(
+        @Query() projectIdParam: ProjectIdParam,
+        @Param() siteIdParam: SiteIdParam,
+        @Body() updateSiteDto: UpdateSiteDto,
+        @RequestUser() user: JwtPayload,
+    ) {
+        return this.sitesService.update(
+            projectIdParam.id,
+            siteIdParam.id,
+            updateSiteDto,
+            user.id,
+        );
     }
 }
