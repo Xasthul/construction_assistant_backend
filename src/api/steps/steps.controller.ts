@@ -97,7 +97,18 @@ export class StepsController {
     @HttpCode(HttpStatus.OK)
     @ApiOperation({ summary: 'Complete step' })
     @ApiResponse({ status: HttpStatus.OK })
-    complete(@Param() stepIdParam: StepIdParam) {
-        return this.stepsService.complete(stepIdParam.stepId);
+    @ApiResponse({ status: HttpStatus.NOT_FOUND, description: 'Step not found' })
+    complete(
+        @Query() projectIdParam: ProjectIdParam,
+        @Query() siteIdParam: SiteIdParam,
+        @Param() stepIdParam: StepIdParam,
+        @RequestUser() user: JwtPayload,
+    ) {
+        return this.stepsService.complete(
+            projectIdParam.projectId,
+            siteIdParam.siteId,
+            stepIdParam.stepId,
+            user.id,
+        );
     }
 }

@@ -102,7 +102,28 @@ export class StepsService {
         }
     }
 
-    async complete(id: string) {
-        return await this.stepRepository.update({ id: id }, { isCompleted: true });
+    async complete(
+        projectId: string,
+        siteId: string,
+        stepId: string,
+        userId: string,
+    ): Promise<void> {
+        const step = await this.stepRepository.findOne({
+            where: {
+                site: {
+                    project: {
+                        id: projectId,
+                        userId: userId,
+                    },
+                    id: siteId,
+                },
+                id: stepId,
+            },
+            relations: { site: false },
+        });
+        if (!step) {
+            throw new NotFoundException();
+        }
+        await this.stepRepository.update(stepId, { isCompleted: true });
     }
 }
