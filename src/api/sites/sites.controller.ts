@@ -1,10 +1,13 @@
-import { Body, Controller, HttpCode, HttpStatus, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, HttpStatus, Post, Query, UseGuards } from '@nestjs/common';
 import { SitesService } from './sites.service';
 import { CreateSiteDto } from './dto/create-site.dto';
 import { JwtAuthGuard } from '../auth/jwt-auth-guard';
 import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { RequestUser } from '../common/decorators/request-user.decorator';
 import { JwtPayload } from '../auth/dto/jwt-payload';
+import { ProjectIdParam } from '../projects/dto/project-id.param';
+import { SiteItemsResource } from './resources/site-items';
+import { SiteResource } from './resources/site';
 
 @Controller('sites')
 @UseGuards(JwtAuthGuard)
@@ -12,6 +15,23 @@ import { JwtPayload } from '../auth/dto/jwt-payload';
 @ApiBearerAuth('JWT-auth')
 export class SitesController {
     constructor(private sitesService: SitesService) { }
+
+    @Get()
+    @HttpCode(HttpStatus.OK)
+    @ApiOperation({ summary: "Get all sites for project" })
+    @ApiResponse({ status: HttpStatus.OK })
+    async findAll(
+        @Query() projectIdParam: ProjectIdParam,
+        @RequestUser() user: JwtPayload,
+    ) {
+        const sites = await this.sitesService.findAll(projectIdParam.id, user.id);
+
+        return SiteItemsResource.from(
+            sites.map(
+                (site) => SiteResource.from(site)
+            ),
+        );
+    }
 
     @Post()
     @HttpCode(HttpStatus.CREATED)
