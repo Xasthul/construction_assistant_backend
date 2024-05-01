@@ -4,6 +4,6 @@ import { IsUUID } from "class-validator";
 export class ProjectIdParam {
 
     @IsUUID()
-    @ApiProperty({ description: 'Project id' })
+    @ApiProperty({ name: 'projectId' })
     id: string
 }
