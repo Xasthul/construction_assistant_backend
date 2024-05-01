@@ -40,7 +40,7 @@ export class ProjectsController {
         @Param() projectIdParam: ProjectIdParam,
         @RequestUser() user: JwtPayload,
     ) {
-        const project = await this.projectsService.findById(projectIdParam.id, user.id);
+        const project = await this.projectsService.findById(projectIdParam.projectId, user.id);
 
         return ProjectItemResource.from(
             ProjectResource.from(project)
@@ -68,7 +68,7 @@ export class ProjectsController {
         @Body() updateProjectDto: UpdateProjectDto,
         @RequestUser() user: JwtPayload,
     ) {
-        return this.projectsService.update(projectIdParam.id, updateProjectDto, user.id)
+        return this.projectsService.update(projectIdParam.projectId, updateProjectDto, user.id)
     }
 
     @Delete(':id')
@@ -80,6 +80,6 @@ export class ProjectsController {
         @Param() projectIdParam: ProjectIdParam,
         @RequestUser() user: JwtPayload,
     ) {
-        return this.projectsService.delete(projectIdParam.id, user.id);
+        return this.projectsService.delete(projectIdParam.projectId, user.id);
     }
 }
