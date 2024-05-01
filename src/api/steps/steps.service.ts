@@ -9,7 +9,7 @@ import { Site } from 'src/domain/models/site.entity';
 @Injectable()
 export class StepsService {
     constructor(
-        @InjectRepository(Step)
+        @InjectRepository(Site)
         private siteRepository: Repository<Site>,
         @InjectRepository(Step)
         private stepRepository: Repository<Step>
