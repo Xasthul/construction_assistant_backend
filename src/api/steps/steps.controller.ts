@@ -57,11 +57,21 @@ export class StepsController {
     @HttpCode(HttpStatus.OK)
     @ApiOperation({ summary: 'Update step' })
     @ApiResponse({ status: HttpStatus.OK })
+    @ApiResponse({ status: HttpStatus.NOT_FOUND, description: 'Step not found' })
     update(
+        @Query() projectIdParam: ProjectIdParam,
+        @Query() siteIdParam: SiteIdParam,
         @Param() stepIdParam: StepIdParam,
         @Body() updateStepDto: UpdateStepDto,
+        @RequestUser() user: JwtPayload,
     ) {
-        return this.stepsService.update(stepIdParam.stepId, updateStepDto);
+        return this.stepsService.update(
+            projectIdParam.projectId,
+            siteIdParam.siteId,
+            stepIdParam.stepId,
+            updateStepDto,
+            user.id,
+        );
     }
 
     @Delete(':id')

@@ -55,8 +55,30 @@ export class StepsService {
         await this.stepRepository.save(step);
     }
 
-    async update(id: string, updateStepDto: UpdateStepDto) {
-        return await this.stepRepository.update({ id: id }, updateStepDto);
+    async update(
+        projectId: string,
+        siteId: string,
+        stepId: string,
+        updateStepDto: UpdateStepDto,
+        userId: string,
+    ): Promise<void> {
+        const step = await this.stepRepository.findOne({
+            where: {
+                site: {
+                    project: {
+                        id: projectId,
+                        userId: userId,
+                    },
+                    id: siteId,
+                },
+                id: stepId,
+            },
+            relations: { site: false },
+        });
+        if (!step) {
+            throw new NotFoundException();
+        }
+        await this.stepRepository.update(stepId, updateStepDto);
     }
 
     async delete(id: string) {
