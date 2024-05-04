@@ -23,8 +23,7 @@ export class AuthController {
     @HttpCode(HttpStatus.OK)
     @ApiOperation({ summary: 'Login user' })
     @ApiResponse({ status: HttpStatus.OK, type: LoginResource })
-    @ApiResponse({ status: HttpStatus.NOT_FOUND, description: 'User with such email not found' })
-    @ApiResponse({ status: HttpStatus.UNAUTHORIZED, description: 'Wrong password' })
+    @ApiResponse({ status: HttpStatus.UNAUTHORIZED, description: 'Wrong credentials' })
     async login(@Body() loginDto: LoginDto) {
         const accessToken = await this.authService.login(loginDto);
 
